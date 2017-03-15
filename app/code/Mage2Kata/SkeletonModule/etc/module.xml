@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ProjectEight
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future. If you wish to customize this module for your
+ * needs please ProjectEight for more information.
+ *
+ * @category    ProjectEight
+ * @package     m2devbox
+ * @copyright   Copyright (c) 2017 ProjectEight
+ * @author      ProjectEight
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Mage2Kata_SkeletonModule" setup_version="0.1.0">
+    </module>
+</config>
