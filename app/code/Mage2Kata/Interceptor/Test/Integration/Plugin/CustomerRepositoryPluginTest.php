@@ -25,42 +25,71 @@ use Magento\TestFramework\ObjectManager;
 
 class CustomerRepositoryPluginTest extends \PHPUnit_Framework_TestCase
 {
-//	public function testNothing()
-//	{
-//		$this->assertTrue( true);
-//	}
+	protected $pluginModuleId = 'mage2kata_interceptor';
 
-	public function testTheModuleInterceptsCallsToTheCustomerRepository()
+	/** @var ObjectManager $objectManager */
+	protected $objectManager;
+
+	protected function setup()
 	{
 		/** @var ObjectManager $objectManager */
-		$objectManager = ObjectManager::getInstance();
+		$this->objectManager = ObjectManager::getInstance();
 
-		/** @var PluginList $pluginList */
-		$pluginList = $objectManager->create( PluginList::class );
-
-		// If there is no configuration for this plugin type, return an empty array
-		$pluginInfo = $pluginList->get( CustomerRepositoryInterface::class, [ ] );
-
-		// 'mage2kata_interceptor' is the name of the plugin and needs to be unique
-		$this->assertSame( CustomerRepositoryPlugin::class, $pluginInfo['mage2kata_interceptor']['instance'] );
+		// This is the name of the plugin and needs to be unique
+		$this->pluginModuleId = 'mage2kata_interceptor';
 	}
 
-	public function testTheModuleInterceptsCallsToTheCustomerRepositoryInWebApiScopeOnly()
+	protected function tearDown()
 	{
-		/** @var ObjectManager $objectManager */
-		$objectManager = ObjectManager::getInstance();
+		$this->setArea( null);
+	}
 
+	/**
+	 * @param string $areaCode
+	 */
+	protected function setArea( $areaCode )
+	{
 		/** @var State $appArea */
-		$appArea = $objectManager->get( State::class);
-		$appArea->setAreaCode( Area::AREA_WEBAPI_REST);
+		$appArea = $this->objectManager->get( State::class );
+		$appArea->setAreaCode( $areaCode );
+	}
 
-		/** @var PluginList $pluginList */
-		$pluginList = $objectManager->create( PluginList::class );
-
+	/**
+	 * @return array[]
+	 */
+	protected function getCustomerRepositoryPluginInfo()
+	{
+		$pluginList = $this->objectManager->create( PluginList::class );
 		// If there is no configuration for this plugin type, return an empty array
 		$pluginInfo = $pluginList->get( CustomerRepositoryInterface::class, [ ] );
 
-		// 'mage2kata_interceptor' is the name of the plugin and needs to be unique
-		$this->assertSame( CustomerRepositoryPlugin::class, $pluginInfo['mage2kata_interceptor']['instance'] );
+		return $pluginInfo;
+	}
+
+	/**
+	 * Test assumes that di.xml is in Mage2Kata/Interceptor/etc/di.xml
+	 */
+//	public function testTheModuleInterceptsCallsToTheCustomerRepository()
+//	{
+//		$pluginInfo = $this->getCustomerRepositoryPluginInfo();
+//
+//		// '$this->pluginModuleId' is the name of the plugin and needs to be unique
+//		$this->assertSame( CustomerRepositoryPlugin::class, $pluginInfo[ $this->pluginModuleId ]['instance'] );
+//	}
+
+	public function testTheModuleInterceptsCallsToTheCustomerRepositoryInWebApiRestScopeOnly()
+	{
+		$this->setArea( Area::AREA_WEBAPI_REST );
+
+		$pluginInfo = $this->getCustomerRepositoryPluginInfo();
+
+		// '$this->pluginModuleId' is the name of the plugin and needs to be unique
+		$this->assertSame( CustomerRepositoryPlugin::class, $pluginInfo[ $this->pluginModuleId ]['instance'] );
+	}
+
+	public function testTheModuleDoesNotInterceptCallsToTheCustomerRepositoryInGlobalScope( )
+	{
+		$this->setArea( Area::AREA_GLOBAL);
+		$this->assertArrayNotHasKey( $this->pluginModuleId, $this->getCustomerRepositoryPluginInfo());
 	}
 }
