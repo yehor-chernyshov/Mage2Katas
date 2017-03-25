@@ -16,7 +16,6 @@
 
 namespace VinaiKopp\Kitchen\Api;
 
-
 use Magento\Framework\Api\SearchCriteriaInterface;
 use VinaiKopp\Kitchen\Api\Data\HamburgerInterface;
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace VinaiKopp\Kitchen\Api;
+namespace VinaiKopp\Kitchen\Model;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\NoSuchEntityException;
 use VinaiKopp\Kitchen\Api\Data\HamburgerInterface;
-use VinaiKopp\Kitchen\Api\Data\HamburgerSearchResultInterface;
 use VinaiKopp\Kitchen\Api\Data\HamburgerSearchResultInterfaceFactory;
+use VinaiKopp\Kitchen\Api\HamburgerRepositoryInterface;
 use VinaiKopp\Kitchen\Model\ResourceModel\Hamburger\Collection as HamburgerCollectionFactory;
 use VinaiKopp\Kitchen\Model\ResourceModel\Hamburger\Collection;
 
@@ -31,7 +31,9 @@ class HamburgerRepository implements HamburgerRepositoryInterface
 	/**
 	 * HamburgerRepository constructor.
 	 *
-	 * @param HamburgerFactory $hamburgerFactory
+	 * @param HamburgerFactory                      $hamburgerFactory
+	 * @param Collection                            $hamburgerCollectionFactory
+	 * @param HamburgerSearchResultInterfaceFactory $hamburgerSearchResultInterfaceFactory
 	 */
 	public function __construct(
 		HamburgerFactory $hamburgerFactory,
@@ -83,7 +85,7 @@ class HamburgerRepository implements HamburgerRepositoryInterface
 
 	public function getList( SearchCriteriaInterface $searchCriteria )
 	{
-		$collection = $this->collectionFactory->create();
+		$collection = $this->hamburgerCollectionFactory->create();
 
 		$this->addFiltersToCollection($searchCriteria, $collection);
 		$this->addSortOrdersToCollection($searchCriteria, $collection);

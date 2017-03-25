@@ -15,7 +15,7 @@ class Hamburger extends AbstractExtensibleModel implements HamburgerInterface
 
 	protected function _construct()
 	{
-		$this->_init(ResourceModel\Hamburger::class);
+		$this->_init(ResourceModel\Hamburger\Collection::class);
 	}
 
 	public function getName()

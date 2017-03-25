@@ -7,7 +7,6 @@
  */
 namespace VinaiKopp\Kitchen\Api\Data;
 
-
 use Magento\Framework\Api\ExtensibleDataInterface;
 
 interface HamburgerInterface extends ExtensibleDataInterface
