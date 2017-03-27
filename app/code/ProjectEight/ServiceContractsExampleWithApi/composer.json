@@ -1,0 +1,21 @@
+{
+    "name": "projecteight/module-servicecontractsexamplewithapi",
+    "description": "Module to demonstrate implementation of Service Contracts in Magento 2",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "info@mage2gen.com",
+            "name": "Mage2Gen"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "ProjectEight\\ServiceContractsExampleWithApi\\": ""
+        }
+    }
+}

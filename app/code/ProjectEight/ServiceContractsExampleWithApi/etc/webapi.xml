@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route method="GET" url="/V1/projecteight-servicecontractsexamplewithapi/getbeefburgerwithpickles">
+		<service class="ProjectEight\ServiceContractsExampleWithApi\Api\GetBeefburgerWithPicklesManagementInterface" method="getGetBeefburgerWithPickles"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route method="PUT" url="/V1/projecteight-servicecontractsexamplewithapi/savebeefburgerwithpickles">
+		<service class="ProjectEight\ServiceContractsExampleWithApi\Api\SaveBeefburgerWithPicklesManagementInterface" method="putSaveBeefburgerWithPickles"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route method="DELETE" url="/V1/projecteight-servicecontractsexamplewithapi/deletebeefburgerwithpickles">
+		<service class="ProjectEight\ServiceContractsExampleWithApi\Api\DeleteBeefburgerWithPicklesManagementInterface" method="deleteDeleteBeefburgerWithPickles"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route method="POST" url="/V1/projecteight-servicecontractsexamplewithapi/savebeefburgerwithpickles">
+		<service class="ProjectEight\ServiceContractsExampleWithApi\Api\SaveBeefburgerWithPicklesManagementInterface" method="postSaveBeefburgerWithPickles"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+</routes>
