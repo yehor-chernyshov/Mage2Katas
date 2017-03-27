@@ -3,7 +3,7 @@
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="projecteight_commandtestbed_command_testbed" xsi:type="object">ProjectEight\CommandTestBed\Command\Testbed</item>
+                <item name="projecteight_servicecontractsexampletestbed_command_testbed" xsi:type="object">ProjectEight\ServiceContractsExampleTestBed\Command\ServiceContractsExampleTestBed</item>
             </argument>
         </arguments>
     </type>

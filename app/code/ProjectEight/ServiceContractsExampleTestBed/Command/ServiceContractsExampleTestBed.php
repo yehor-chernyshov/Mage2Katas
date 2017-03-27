@@ -1,13 +1,12 @@
 <?php
-namespace ProjectEight\CommandTestBed\Command;
+namespace ProjectEight\ServiceContractsExampleTestBed\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use ProjectEight\ServiceContractsExample\Api\BeefburgerRepositoryInterface;
-use ProjectEight\ServiceContractsExample\Model\BeefburgerRepository;
 
-class Testbed extends Command
+class ServiceContractsExampleTestBed extends Command
 {
 	/**
 	 * @var \Magento\Framework\ObjectManagerInterface
@@ -15,7 +14,7 @@ class Testbed extends Command
 	private $objectManager;
 
 	/**
-	 * Testbed constructor.
+	 * ServiceContractsExampleTestBed constructor.
 	 */
 	public function __construct(
 		\Magento\Framework\ObjectManagerInterface $objectManager,
@@ -30,7 +29,7 @@ class Testbed extends Command
 
 	protected function configure()
     {
-        $this->setName("proj8:testbed");
+        $this->setName("project8:service-contracts:test-bed");
         $this->setDescription("Test Bed for running various commands");
         parent::configure();
     }
@@ -46,8 +45,8 @@ class Testbed extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
     	/** @var BeefburgerRepositoryInterface $repository */
-		$repository = $this->objectManager->get('ProjectEight\ServiceContractsExample\Model\BeefburgerRepository');
-		$beefburger = $this->objectManager->get('ProjectEight\ServiceContractsExample\Model\Beefburger');
+		$repository = $this->objectManager->get(\ProjectEight\ServiceContractsExample\Model\BeefburgerRepository::class);
+		$beefburger = $this->objectManager->get(\ProjectEight\ServiceContractsExample\Model\Beefburger::class);
 
 		$output->writeln( "Creating new beefburger...");
 		$beefburger->setName( 'The Big Cheese' );
@@ -68,4 +67,4 @@ class Testbed extends Command
 
 		$output->writeln( "All done.");
     }
-} 
+}
