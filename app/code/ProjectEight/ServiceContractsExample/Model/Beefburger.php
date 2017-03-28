@@ -9,6 +9,7 @@ class Beefburger extends \Magento\Framework\Model\AbstractModel implements Beefb
 {
 
     /**
+     * Beefburger constructor
      * @return void
      */
     protected function _construct()
