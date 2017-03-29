@@ -24,49 +24,72 @@ use Magento\Framework\Component\ComponentRegistrar;
 use Magento\Framework\Module\ModuleList;
 use Magento\TestFramework\ObjectManager;
 
-class DiConfigConfigTest extends \PHPUnit_Framework_TestCase
+class ConfigTest extends \PHPUnit_Framework_TestCase
 {
-	public function testNothing()
-	{
-		$this->markTestSkipped('Testing that PhpStorm and test framework is setup correctly');
-	}
+    /**
+     * Name of the module we're testing
+     *
+     * @var string
+     */
+    private $moduleName = 'Mage2Kata_DiConfig';
 
-	private $moduleName = 'Mage2Kata_DiConfig';
+    /**
+     * Test that the test environment is setup correctly
+     *
+     * @return void
+     */
+    public function testNothing()
+    {
+        $this->markTestSkipped('Testing that PhpStorm and test framework is setup correctly');
+    }
 
-	public function testTheModuleIsRegistered()
-	{
-		$registrar = new ComponentRegistrar();
-		$this->assertArrayHasKey(
-			$this->moduleName,
-			$registrar->getPaths( ComponentRegistrar::MODULE)
-		);
-	}
+    /**
+     * Test that Magento has picked up the registration.php file
+     *
+     * @return void
+     */
+    public function testTheModuleIsRegistered()
+    {
+        $registrar = new ComponentRegistrar();
+        $this->assertArrayHasKey(
+            $this->moduleName,
+            $registrar->getPaths(ComponentRegistrar::MODULE)
+        );
+    }
 
-	public function testTheModuleIsConfiguredAndEnabledInTheTestEnvironment()
-	{
-		/** @var ObjectManager $objectManager */
-		$objectManager = ObjectManager::getInstance();
+    /**
+     * Test that the module has a registration.php and module.xml and it is enabled
+     *
+     * @return void
+     */
+    public function testTheModuleIsConfiguredAndEnabledInTheTestEnvironment()
+    {
+        /** @var ObjectManager $objectManager */
+        $objectManager = ObjectManager::getInstance();
 
-		/** @var ModuleList $moduleList */
-		$moduleList = $objectManager->create( ModuleList::class);
+        /** @var ModuleList $moduleList */
+        $moduleList = $objectManager->create(ModuleList::class);
 
-		$this->assertTrue( $moduleList->has( $this->moduleName), 'The module is not enabled in the test environment');
-	}
+        $this->assertTrue($moduleList->has($this->moduleName), 'The module is not enabled in the test environment');
+    }
 
-	public function testTheModuleIsConfiguredAndEnabledInTheLiveEnvironment()
-	{
-		/** @var ObjectManager $objectManager */
-		$objectManager = ObjectManager::getInstance();
+    /**
+     * Test that the module has a registration.php and module.xml and it is enabled in the live environment
+     *
+     * @return void
+     */
+    public function testTheModuleIsConfiguredAndEnabledInTheLiveEnvironment()
+    {
+        /** @var ObjectManager $objectManager */
+        $objectManager = ObjectManager::getInstance();
 
-		$dirList            = $objectManager->create( DirectoryList::class, ['root' => BP]);
-		$configReader       = $objectManager->create( DeploymentConfigReader::class, ['dirList' => $dirList]);
-		$deploymentConfig   = $objectManager->create( DeploymentConfig::class, ['reader' => $configReader]);
+        $dirList          = $objectManager->create(DirectoryList::class, [ 'root' => BP ]);
+        $configReader     = $objectManager->create(DeploymentConfigReader::class, [ 'dirList' => $dirList ]);
+        $deploymentConfig = $objectManager->create(DeploymentConfig::class, [ 'reader' => $configReader ]);
 
-		/** @var ModuleList $moduleList */
-		$moduleList = $objectManager->create( ModuleList::class, ['config' => $deploymentConfig]);
+        /** @var ModuleList $moduleList */
+        $moduleList = $objectManager->create(ModuleList::class, [ 'config' => $deploymentConfig ]);
 
-
-		$this->assertTrue( $moduleList->has( $this->moduleName), 'The module is not enabled in the live environment');
-	}
-
+        $this->assertTrue($moduleList->has($this->moduleName), 'The module is not enabled in the live environment');
+    }
 }
